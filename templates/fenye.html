@@ -2,20 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bootstrap介绍</title>
-    <link rel="stylesheet" type="text/css" href="static/bootstrap.min.css">
+    <title>服务器列表</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }} ">
 </head>
-<body>
+<body style="margin:50px">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>实例ID</td>
+                <td>私有IP地址</td>
+                <td>公有IP地址</td>
+                <td>主机别名</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            {%for ids in page_data%}
+            <tr>
+                <td>{{ids}}</td>
+                <td>{{instance_info[ids][0]}}</td>
+                <td>{{instance_info[ids][1]}}</td>
+                <td>{{instance_info[ids][2]}}</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-success btn-sm">详情</button>
+                        <button class="btn btn-warning btn-sm">操作</button>
+                    </div>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+<br>
 
-<!--默认每页显示20行-->
 <ul class="pagination" style="float:right;">
     <li><a href="#">&laquo;</a></li>
-    {% for i in page_num %}
-        <li><a href="#">{{ i + 1 }}</a></li>
+    <!--默认每页显示20行 -->
+    {% set goble_url = 'http://192.168.0.113:8000/'  %}
+    {% for i in  page_num   %} 
+            <li><a href="{{ goble_url  }}page/{{i}}">{{ i }}</a></li>
     {%endfor%}
-    <li><a href="#">&raquo;</a></li>
+    <li><a href="#">&raquo;</a></li> 
 </ul>
-<script src="static/jquery.min.js"></script>
-<script src="static/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 </body>
 </html>

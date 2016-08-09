@@ -17,7 +17,7 @@
             </tr>
         </thead>
         <tbody>
-            {%for ids in instance_info.keys()%}
+            {%for ids in head_ten%}
             <tr>
                 <td>{{ids}}</td>
                 <td>{{instance_info[ids][0]}}</td>
@@ -37,9 +37,9 @@
 
 <ul class="pagination" style="float:right;">
     <li><a href="#">&laquo;</a></li>
-    <!-->默认每页显示20行 <-->
+    <!--默认每页显示20行 -->
     {% for i in  page_num   %} 
-            <li><a href="#">{{ i }}</a></li>
+            <li><a href="page/{{i}}">{{ i }}</a></li>
     {%endfor%}
     <li><a href="#">&raquo;</a></li> 
 </ul>
