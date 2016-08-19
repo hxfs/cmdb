@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf-8
 
-from flask import Flask,render_template
+from flask import Flask,render_template,request
 from aws import ec2
 
 app = Flask(__name__)
@@ -54,7 +54,18 @@ def page_splite(page_id,number=20):
             page_data = instance_id[index_id[0]:index_id[1]]
 
     return render_template('fenye.html',page_data=page_data,page_num=range(1,page_num+1),instance_info=instance_info)
+
+@app.route('/server/create')
+def form_create():
+    return render_template('form.html')
     
+@app.route('/server/create_status',methods=['POST'])
+def create_status():
+    data = request.form
+    firstname = request.form.get('firstname')
+    print dir(data)
+    
+    return render_template('status.html',firstname=firstname)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=8000)
